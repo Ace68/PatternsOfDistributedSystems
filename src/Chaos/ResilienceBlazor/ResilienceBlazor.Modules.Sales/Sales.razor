@@ -1,0 +1,20 @@
+﻿@inherits SalesBase
+@page "/sales"
+
+<FluentToolbar id="toolbar-slotted-label">
+	<FluentButton Appearance="Appearance.Accent" OnClick="@GetSalesOrdersWithResilienceAsync">Get Orders (Resilience)</FluentButton>
+	<FluentButton Appearance="Appearance.Accent" OnClick="@GetSalesOrdersWithoutResilienceAsync">Get Orders (Chaos)</FluentButton>
+	<FluentButton Appearance="Appearance.Accent" OnClick="@CreateSalesOrderAsync">Order Beers</FluentButton>
+</FluentToolbar>
+<br/>
+<hr/>
+<FluentCard>
+	<h2>Http Response</h2>
+	<FluentLabel Typo="Typography.H3" Color="Color.Error">@ErrorMessage</FluentLabel>
+</FluentCard>
+<br />
+<hr/>
+<FluentDataGrid Items="@SalesOrders">
+	<PropertyColumn Property="@(o => o.CustomerName)" Sortable="true" />
+	<PropertyColumn Property="@(o => o.OrderDate)" Format="yyyy-MM-dd" Sortable="true" />
+</FluentDataGrid>
