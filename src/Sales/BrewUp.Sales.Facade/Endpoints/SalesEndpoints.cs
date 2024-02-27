@@ -1,5 +1,4 @@
 ﻿using BrewUp.Sales.Facade.Validators;
-using BrewUp.Sales.SharedKernel.Metrics;
 using BrewUp.Shared.Contracts;
 using FluentValidation;
 using Microsoft.AspNetCore.Builder;
@@ -33,7 +32,6 @@ public static class SalesEndpoints
 		IValidator<SalesOrderJson> validator,
 		ValidationHandler validationHandler,
 		SalesOrderJson body,
-		SalesMetrics metrics,
 		CancellationToken cancellationToken)
 	{
 		await validationHandler.ValidateAsync(validator, body);
@@ -41,11 +39,6 @@ public static class SalesEndpoints
 			return Results.BadRequest(validationHandler.Errors);
 
 		var salesOrderId = await salesUpFacade.CreateOrderAsync(body, cancellationToken);
-
-		foreach (var row in body.Rows)
-		{
-			metrics.BeerSold(row.BeerName, row.Quantity.Value);
-		}
 
 		return Results.Created(new Uri($"/v1/sales/{salesOrderId}", UriKind.Relative), salesOrderId);
 	}
