@@ -32,7 +32,7 @@ class Warehouses(FastHttpUser):
         "Connection": "keep-alive",
         "Cookie": "grafana_session=67a0d7596a5adb9c65234ab3b2982d68; grafana_session_expiry=1709305914",
         "Host": "localhost:5500",
-        "Referer": "http://localhost:5500/documentation/index.html",
+        "Referer": "http://localhost:5600/documentation/index.html",
         "Sec-Fetch-Dest": "empty",
         "Sec-Fetch-Mode": "cors",
         "Sec-Fetch-Site": "same-origin",

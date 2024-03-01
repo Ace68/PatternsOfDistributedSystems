@@ -9,34 +9,54 @@
 </FluentToolbar>
 <br/>
 <hr/>
-<FluentCard>
-	<h2>Http Response</h2>
-	<div hidden="@HideResponse">
-		<FluentLabel Typo="Typography.H3" Color="Color.Error">@ErrorMessage</FluentLabel>
-	</div>
-</FluentCard>
+<FluentSplitter Orientation=Orientation.Horizontal BarSize="6">
+	<Panel1>
+		<h2>Http Response</h2>
+	</Panel1>
+	<Panel2>
+		<div hidden="@HideResponse">
+			<FluentLabel Typo="Typography.H3" Color="Color.Error">@ErrorMessage</FluentLabel>
+		</div>
+	</Panel2>
+</FluentSplitter>
 <br/>
 <hr/>
-<FluentCard>
-	<FluentBadge  Fill="somevalue" BackgroundColor="green" Color="white">
-		<FluentLabel>Good Responses</FluentLabel>
-	</FluentBadge>
-	<FluentDivider></FluentDivider>
-	<FluentBadge  Fill="somevalue" BackgroundColor="green" Color="white">
-		@GoodResponses
-	</FluentBadge>
-	<hr/>
-	<FluentBadge Fill="somevalue" BackgroundColor="red" Color="white">
-		<FluentLabel>Bad Responses</FluentLabel>
-	</FluentBadge>
-	<FluentDivider></FluentDivider>
-	<FluentBadge Fill="somevalue" BackgroundColor="red" Color="white">
-		@BadResponses
-	</FluentBadge>
-</FluentCard>
+<FluentSplitter Orientation=Orientation.Horizontal BarSize="6" Panel1MinSize="15%" Panel2MinSize="50px">
+	<Panel1>
+		<FluentCard>
+			<div class="container-fluid">
+				<div class="col"></div>
+			</div>
+			<FluentBadge Fill="somevalue" BackgroundColor="green" Color="white">
+				<FluentButton>
+					Good Responses
+				</FluentButton>
+				<FluentDivider Style="height: 50px;" Orientation="Orientation.Vertical"></FluentDivider>
+				<FluentButton IconStart="@(new Icons.Regular.Size16.Globe())">
+					@GoodResponses
+				</FluentButton>
+			</FluentBadge>
+		</FluentCard>
+	</Panel1>
+	<Panel2>
+		<FluentCard>
+			<FluentBadge Fill="somevalue" BackgroundColor="red" Color="white">
+				<FluentButton>
+					Bad Responses
+				</FluentButton>
+				<FluentDivider Style="height: 50px;" Orientation="Orientation.Vertical"></FluentDivider>
+				<FluentButton IconStart="@(new Icons.Regular.Size16.Globe())">
+					@BadResponses
+				</FluentButton>
+			</FluentBadge>
+		</FluentCard>
+	</Panel2>
+</FluentSplitter>
+
 <br />
 <hr/>
 <FluentDataGrid Items="@SalesOrders">
-	<PropertyColumn Property="@(o => o.CustomerName)" Sortable="true" />
-	<PropertyColumn Property="@(o => o.OrderDate)" Format="yyyy-MM-dd" Sortable="true" />
+	<PropertyColumn Property="@(o => o.SalesOrderNumber)" Sortable="true" />
+	<PropertyColumn Property="@(o => o.CustomerName)" Sortable="true"/>
+	<PropertyColumn Property="@(o => o.OrderDate)" Format="yyyy-MM-dd" Sortable="true"/>
 </FluentDataGrid>

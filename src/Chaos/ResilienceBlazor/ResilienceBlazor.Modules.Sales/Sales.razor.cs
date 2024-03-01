@@ -94,8 +94,10 @@ public class SalesBase : ComponentBase, IDisposable
 
 	protected async Task CreateSalesOrderAsync()
 	{
+		var salesOrderNumber =
+			$"{DateTime.UtcNow.Year:0000}{DateTime.UtcNow.Month:00}{DateTime.UtcNow.Day:00}-{DateTime.UtcNow.Hour:00}{DateTime.UtcNow.Minute:00}";
 		var salesOrder = new SalesOrderJson(Guid.NewGuid().ToString(),
-			$"{DateTime.UtcNow.Year:0000}{DateTime.UtcNow.Month:00}{DateTime.UtcNow.Day:00}",
+			salesOrderNumber,
 			Guid.NewGuid(), "Muflone",
 			DateTime.UtcNow,
 			new List<SalesOrderRowJson>
