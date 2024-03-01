@@ -5,12 +5,34 @@
 	<FluentButton Appearance="Appearance.Accent" OnClick="@GetSalesOrdersWithResilienceAsync">Get Orders (Resilience)</FluentButton>
 	<FluentButton Appearance="Appearance.Accent" OnClick="@GetSalesOrdersWithoutResilienceAsync">Get Orders (Chaos)</FluentButton>
 	<FluentButton Appearance="Appearance.Accent" OnClick="@CreateSalesOrderAsync">Order Beers</FluentButton>
+	<FluentButton Appearance="Appearance.Accent" OnClick="@ResetError">Reset</FluentButton>
 </FluentToolbar>
 <br/>
 <hr/>
 <FluentCard>
 	<h2>Http Response</h2>
-	<FluentLabel Typo="Typography.H3" Color="Color.Error">@ErrorMessage</FluentLabel>
+	<div hidden="@HideResponse">
+		<FluentLabel Typo="Typography.H3" Color="Color.Error">@ErrorMessage</FluentLabel>
+	</div>
+</FluentCard>
+<br/>
+<hr/>
+<FluentCard>
+	<FluentBadge  Fill="somevalue" BackgroundColor="green" Color="white">
+		<FluentLabel>Good Responses</FluentLabel>
+	</FluentBadge>
+	<FluentDivider></FluentDivider>
+	<FluentBadge  Fill="somevalue" BackgroundColor="green" Color="white">
+		@GoodResponses
+	</FluentBadge>
+	<hr/>
+	<FluentBadge Fill="somevalue" BackgroundColor="red" Color="white">
+		<FluentLabel>Bad Responses</FluentLabel>
+	</FluentBadge>
+	<FluentDivider></FluentDivider>
+	<FluentBadge Fill="somevalue" BackgroundColor="red" Color="white">
+		@BadResponses
+	</FluentBadge>
 </FluentCard>
 <br />
 <hr/>

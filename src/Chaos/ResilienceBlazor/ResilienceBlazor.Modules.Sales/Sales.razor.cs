@@ -12,11 +12,24 @@ public class SalesBase : ComponentBase, IDisposable
 	protected IQueryable<SalesOrderJson> SalesOrders { get; set; } = default!;
 	protected string ErrorMessage { get; set; } = string.Empty;
 
-	private bool _waitErrorReset;
+	protected bool WaitErrorReset;
+	protected bool HideResponse = true;
+
+	protected int GoodResponses = 0;
+	protected int BadResponses = 0;
 
 	protected async Task GetSalesOrdersWithResilienceAsync()
 	{
-		if (_waitErrorReset)
+		for (var i = 0; i < 10; i++)
+		{
+			await InvokeSalesOrdersWithResilienceAsync();
+			await Task.Delay(100);
+		}
+	}
+
+	protected async Task InvokeSalesOrdersWithResilienceAsync()
+	{
+		if (WaitErrorReset)
 			return;
 
 		try
@@ -25,17 +38,35 @@ public class SalesBase : ComponentBase, IDisposable
 			SalesOrders = result.Results.AsQueryable();
 
 			ErrorMessage = "Success";
+			HideResponse = true;
+
+			GoodResponses++;
 		}
 		catch (Exception ex)
 		{
+			SalesOrders = new List<SalesOrderJson>().AsQueryable();
 			ErrorMessage = ex.Message;
-			_waitErrorReset = true;
+			WaitErrorReset = true;
+			HideResponse = false;
+
+			BadResponses++;
 		}
+
+		StateHasChanged();
 	}
 
 	protected async Task GetSalesOrdersWithoutResilienceAsync()
 	{
-		if (_waitErrorReset)
+		for (var i = 0; i < 10; i++)
+		{
+			await InvokeSalesOrdersWithoutResilienceAsync();
+			await Task.Delay(100);
+		}
+	}
+
+	protected async Task InvokeSalesOrdersWithoutResilienceAsync()
+	{
+		if (WaitErrorReset)
 			return;
 
 		try
@@ -44,12 +75,21 @@ public class SalesBase : ComponentBase, IDisposable
 			SalesOrders = result.Results.AsQueryable();
 
 			ErrorMessage = "Success";
+			HideResponse = true;
+
+			GoodResponses++;
 		}
 		catch (Exception ex)
 		{
+			SalesOrders = new List<SalesOrderJson>().AsQueryable();
 			ErrorMessage = ex.Message;
-			_waitErrorReset = true;
+			WaitErrorReset = true;
+			HideResponse = false;
+
+			BadResponses++;
 		}
+
+		StateHasChanged();
 	}
 
 	protected async Task CreateSalesOrderAsync()
@@ -70,6 +110,16 @@ public class SalesBase : ComponentBase, IDisposable
 			}
 			);
 		await SalesService.CreateSalesOrderAsync(salesOrder, CancellationToken.None);
+	}
+
+	protected void ResetError()
+	{
+		WaitErrorReset = false;
+		HideResponse = true;
+		ErrorMessage = string.Empty;
+
+		GoodResponses = 0;
+		BadResponses = 0;
 	}
 
 	#region Dispose
