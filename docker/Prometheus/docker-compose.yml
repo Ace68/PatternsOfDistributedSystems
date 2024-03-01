@@ -1,0 +1,52 @@
+version: '3.7'
+
+services:
+
+  prometheus:
+    image: ubuntu/prometheus
+    container_name: prometheus
+    ports:
+      - "30090:9090"
+    environment:
+      - TZ=Europe/Rome
+    volumes:
+      - ./prom/prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - loki
+    extra_hosts:
+     - "host.docker.internal:host-gateway"
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    ports:
+      - "30091:3000"
+    volumes:
+      - ./grafana-data/data:/var/lib/grafana
+    networks:
+      - loki
+
+  loki:
+    image: grafana/loki:master
+    ports:
+      - "3100:3100"
+    command: -config.file=/etc/loki/local-config.yaml
+    networks:
+      - loki
+
+  brewup-sales:
+      container_name: "brewupsales"
+      image: brewupsales
+      ports:
+          # HTTP
+          - '5500:8080'
+
+  brewup-warehouses:
+      container_name: "brewupwarehouses"
+      image: brewupwarehouses
+      ports:
+          # HTTP
+          - '5600:8080'
+
+networks:
+  loki:
