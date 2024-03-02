@@ -4,7 +4,7 @@ using System.Net.Http.Json;
 
 namespace ResilienceBlazor.Modules.Sales.Extensions;
 
-public class ResilienceSalesClient(HttpClient client, AppConfiguration configuration)
+public class ResilienceSalesClient(HttpClient client)
 {
 	public async Task<PagedResult<SalesOrderJson>> GetSalesOrdersAsync(CancellationToken cancellationToken)
 		=> await client.GetFromJsonAsync<PagedResult<SalesOrderJson>>("v1/sales", cancellationToken)

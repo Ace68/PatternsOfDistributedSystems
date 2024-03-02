@@ -158,5 +158,4 @@ public class SalesBase : ComponentBase, IDisposable
 		Dispose(false);
 	}
 	#endregion
-
 }

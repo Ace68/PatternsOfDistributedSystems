@@ -13,15 +13,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sales", "Sales", "{52571A68
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Warehouses", "Warehouses", "{653F8630-D57A-4458-B095-2D2447D37F67}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResilienceBlazor.Modules.Warehouses", "ResilienceBlazor.Modules.Warehouses\ResilienceBlazor.Modules.Warehouses.csproj", "{67997E4B-0D3F-45FE-88AD-D2B07CA3FBBD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ResilienceBlazor.Modules.Warehouses", "ResilienceBlazor.Modules.Warehouses\ResilienceBlazor.Modules.Warehouses.csproj", "{67997E4B-0D3F-45FE-88AD-D2B07CA3FBBD}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ResilienceBlazor.Modules.Sales", "ResilienceBlazor.Modules.Sales\ResilienceBlazor.Modules.Sales.csproj", "{D9A6A1B4-6A26-48BC-B5B0-ACDAA9B1CE3B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResilienceBlazor.Modules.Sales.Extensions", "ResilienceBlazor.Modules.Sales.Extensions\ResilienceBlazor.Modules.Sales.Extensions.csproj", "{3052C540-965F-44E0-A5DE-83F19701579E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ResilienceBlazor.Modules.Sales.Extensions", "ResilienceBlazor.Modules.Sales.Extensions\ResilienceBlazor.Modules.Sales.Extensions.csproj", "{3052C540-965F-44E0-A5DE-83F19701579E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "30 Shared", "30 Shared", "{6CBA31FE-1215-4D43-B9A7-6F4A8DAEA857}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResilienceBlazor.Shared", "ResilienceBlazor.Shared\ResilienceBlazor.Shared.csproj", "{7537C733-F3C2-4AF0-A87B-122422450E0F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ResilienceBlazor.Shared", "ResilienceBlazor.Shared\ResilienceBlazor.Shared.csproj", "{7537C733-F3C2-4AF0-A87B-122422450E0F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResilienceBlazor.Modules.Warehouses.Extensions", "ResilienceBlazor.Modules.Warehouses.Extensions\ResilienceBlazor.Modules.Warehouses.Extensions.csproj", "{E4BF35B5-057C-4BCC-A17E-94E0F490C472}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,6 +51,10 @@ Global
 		{7537C733-F3C2-4AF0-A87B-122422450E0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7537C733-F3C2-4AF0-A87B-122422450E0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7537C733-F3C2-4AF0-A87B-122422450E0F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E4BF35B5-057C-4BCC-A17E-94E0F490C472}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4BF35B5-057C-4BCC-A17E-94E0F490C472}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4BF35B5-057C-4BCC-A17E-94E0F490C472}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4BF35B5-057C-4BCC-A17E-94E0F490C472}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -61,6 +67,7 @@ Global
 		{D9A6A1B4-6A26-48BC-B5B0-ACDAA9B1CE3B} = {52571A68-2ABC-4285-9B82-CC6693122BF4}
 		{3052C540-965F-44E0-A5DE-83F19701579E} = {52571A68-2ABC-4285-9B82-CC6693122BF4}
 		{7537C733-F3C2-4AF0-A87B-122422450E0F} = {6CBA31FE-1215-4D43-B9A7-6F4A8DAEA857}
+		{E4BF35B5-057C-4BCC-A17E-94E0F490C472} = {653F8630-D57A-4458-B095-2D2447D37F67}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5572D274-9A42-4577-9E60-18A55B5F4CD7}

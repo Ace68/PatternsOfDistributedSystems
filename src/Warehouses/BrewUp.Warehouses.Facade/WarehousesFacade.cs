@@ -17,6 +17,9 @@ public sealed class WarehousesFacade(IServiceBus serviceBus,
 	{
 		cancellationToken.ThrowIfCancellationRequested();
 
+		if (string.IsNullOrWhiteSpace(availability.BeerId))
+			availability = availability with {BeerId = Guid.NewGuid().ToString()};
+
 		UpdateAvailabilityDueToProductionOrder command =
 			new(new BeerId(new Guid(availability.BeerId)), Guid.NewGuid(), new BeerName(availability.BeerName),
 				availability.Quantity);
