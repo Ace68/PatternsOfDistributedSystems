@@ -4,23 +4,23 @@
 <FluentToolbar id="toolbar-slotted-label">
 	<FluentButton Appearance="Appearance.Accent" OnClick="@GetSalesOrdersWithResilienceAsync">Get Orders (Resilience)</FluentButton>
 	<FluentButton Appearance="Appearance.Accent" OnClick="@GetSalesOrdersWithoutResilienceAsync">Get Orders (Chaos)</FluentButton>
-	<FluentButton Appearance="Appearance.Accent" OnClick="@CreateSalesOrderAsync">Order Beers</FluentButton>
+	<FluentButton Appearance="Appearance.Accent" OnClick="@CreateSalesOrdersAsync">Order Beers</FluentButton>
 	<FluentButton Appearance="Appearance.Accent" OnClick="@ResetError">Reset</FluentButton>
 </FluentToolbar>
 <br/>
 <hr/>
-<FluentSplitter Orientation=Orientation.Horizontal BarSize="6">
-	<Panel1>
-		<h2>Http Response</h2>
-	</Panel1>
-	<Panel2>
-		<div hidden="@HideResponse">
+<div hidden="@HideResponse">
+	<FluentSplitter Orientation=Orientation.Horizontal BarSize="6">
+		<Panel1>
+			<h2>Http Response</h2>
+		</Panel1>
+		<Panel2>
 			<FluentLabel Typo="Typography.H3" Color="Color.Error">@ErrorMessage</FluentLabel>
-		</div>
-	</Panel2>
-</FluentSplitter>
-<br/>
-<hr/>
+		</Panel2>
+	</FluentSplitter>
+	<br/>
+	<hr/>
+</div>
 <FluentSplitter Orientation=Orientation.Horizontal BarSize="6" Panel1MinSize="15%" Panel2MinSize="50px">
 	<Panel1>
 		<FluentCard>

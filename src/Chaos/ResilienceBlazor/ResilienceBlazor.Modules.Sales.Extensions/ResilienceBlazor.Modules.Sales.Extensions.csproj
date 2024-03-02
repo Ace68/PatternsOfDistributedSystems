@@ -17,8 +17,4 @@
     <ProjectReference Include="..\ResilienceBlazor.Shared\ResilienceBlazor.Shared.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Dtos\" />
-  </ItemGroup>
-
 </Project>

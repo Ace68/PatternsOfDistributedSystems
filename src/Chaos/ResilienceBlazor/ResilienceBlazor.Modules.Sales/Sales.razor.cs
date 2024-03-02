@@ -18,6 +18,14 @@ public class SalesBase : ComponentBase, IDisposable
 	protected int GoodResponses = 0;
 	protected int BadResponses = 0;
 
+	protected IEnumerable<CustomerJson> Customers { get; set; } = Enumerable.Empty<CustomerJson>();
+
+	protected override async Task OnInitializedAsync()
+	{
+		Customers = await SalesService.GetCustomersAsync(CancellationToken.None);
+		await base.OnInitializedAsync();
+	}
+
 	protected async Task GetSalesOrdersWithResilienceAsync()
 	{
 		for (var i = 0; i < 10; i++)
@@ -92,14 +100,22 @@ public class SalesBase : ComponentBase, IDisposable
 		StateHasChanged();
 	}
 
-	protected async Task CreateSalesOrderAsync()
+	protected async Task CreateSalesOrdersAsync()
+	{
+		foreach (var customer in Customers)
+		{
+			await CreateSalesOrderAsync(customer, DateTime.UtcNow.AddHours(2));
+		}
+	}
+
+	protected async Task CreateSalesOrderAsync(CustomerJson customer, DateTime orderDate)
 	{
 		var salesOrderNumber =
 			$"{DateTime.UtcNow.Year:0000}{DateTime.UtcNow.Month:00}{DateTime.UtcNow.Day:00}-{DateTime.UtcNow.Hour:00}{DateTime.UtcNow.Minute:00}";
 		var salesOrder = new SalesOrderJson(Guid.NewGuid().ToString(),
 			salesOrderNumber,
-			Guid.NewGuid(), "Muflone",
-			DateTime.UtcNow,
+			customer.CustomerId, customer.CustomerName,
+			orderDate,
 			new List<SalesOrderRowJson>
 			{
 				new()
