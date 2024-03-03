@@ -16,18 +16,16 @@ public sealed class AvailabilityService(ILoggerFactory loggerFactory, [FromKeyed
 		
 		try
 		{
-			var beerAvailability = await availabilitiesQueries.GetByFilterAsync(a => a.BeerId.Equals(beerId.Value.ToString()), 0, 0,
-				cancellationToken);
-			if (beerAvailability.TotalRecords.Equals(0))
+			var beerAvailability = await availabilitiesQueries.GetByIdAsync(beerId.Value.ToString(), cancellationToken);
+			if (beerAvailability != null || string.IsNullOrEmpty(beerAvailability.BeerName))
 			{
 				var availability = Dtos.Availability.Create(beerId, beerName, quantity);
 				await Persister.InsertAsync(availability, cancellationToken);	
 			}
 			else
 			{
-				var availability = beerAvailability.Results.First();
-				availability.UpdateAvailability(quantity);
-				await Persister.UpdateAsync(availability, cancellationToken);
+				beerAvailability.UpdateAvailability(quantity);
+				await Persister.UpdateAsync(beerAvailability, cancellationToken);
 			}
 		}
 		catch (Exception ex)
