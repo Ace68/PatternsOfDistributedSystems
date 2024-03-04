@@ -11,7 +11,7 @@ public static class WarehousesEndpoints
 {
 	public static IEndpointRouteBuilder MapWarehousesEndpoints(this IEndpointRouteBuilder endpoints)
 	{
-		var group = endpoints.MapGroup("/v1/wareHouses/")
+		var group = endpoints.MapGroup("/v1/warehouses/")
 			.WithTags("Warehouses");
 
 		group.MapPost("/availabilities", HandleSetAvailabilities)
@@ -27,19 +27,23 @@ public static class WarehousesEndpoints
 		return endpoints;
 	}
 
-	public static async Task<IResult> HandleSetAvailabilities(
+	private static async Task<IResult> HandleSetAvailabilities(
 		IWarehousesFacade warehousesFacade,
 		IValidator<SetAvailabilityJson> validator,
 		ValidationHandler validationHandler,
 		SetAvailabilityJson body,
 		CancellationToken cancellationToken)
 	{
+		await validationHandler.ValidateAsync(validator, body);
+		if (!validationHandler.IsValid)
+			return Results.BadRequest(validationHandler.Errors);
+		
 		await warehousesFacade.SetAvailabilityAsync(body, cancellationToken);
 
 		return Results.Ok();
 	}
 
-	public static async Task<IResult> HandleGetAvailabilities(
+	private static async Task<IResult> HandleGetAvailabilities(
 		IWarehousesFacade warehousesFacade,
 		CancellationToken cancellationToken)
 	{
