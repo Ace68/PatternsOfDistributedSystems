@@ -19,6 +19,7 @@
   <ItemGroup>
     <ProjectReference Include="..\ResilienceBlazor.Modules.Sales.Extensions\ResilienceBlazor.Modules.Sales.Extensions.csproj" />
     <ProjectReference Include="..\ResilienceBlazor.Modules.Sales\ResilienceBlazor.Modules.Sales.csproj" />
+    <ProjectReference Include="..\ResilienceBlazor.Modules.Warehouses.Extensions\ResilienceBlazor.Modules.Warehouses.Extensions.csproj" />
     <ProjectReference Include="..\ResilienceBlazor.Modules.Warehouses\ResilienceBlazor.Modules.Warehouses.csproj" />
     <ProjectReference Include="..\ResilienceBlazor.Shared\ResilienceBlazor.Shared.csproj" />
   </ItemGroup>

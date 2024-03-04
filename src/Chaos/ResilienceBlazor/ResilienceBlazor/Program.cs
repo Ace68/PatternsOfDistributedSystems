@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.FluentUI.AspNetCore.Components;
 using ResilienceBlazor;
 using ResilienceBlazor.Modules.Sales.Extensions;
+using ResilienceBlazor.Modules.Warehouses.Extensions;
 using ResilienceBlazor.Shared;
 using ResilienceBlazor.Shared.Configuration;
 
@@ -26,6 +27,11 @@ builder.Services.AddBlazoredSessionStorage();
 builder.Services.AddResilienceSalesModule(builder.Configuration.GetSection("BrewApp:AppConfiguration")
 	.Get<AppConfiguration>()!);
 builder.Services.AddSalesModule(builder.Configuration.GetSection("BrewApp:AppConfiguration")
+	.Get<AppConfiguration>()!);
+
+builder.Services.AddResilienceWarehousesModule(builder.Configuration.GetSection("BrewApp:AppConfiguration")
+	.Get<AppConfiguration>()!);
+builder.Services.AddWarehousesModule(builder.Configuration.GetSection("BrewApp:AppConfiguration")
 	.Get<AppConfiguration>()!);
 #endregion
 

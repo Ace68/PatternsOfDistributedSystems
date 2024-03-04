@@ -23,6 +23,11 @@ class Sales(FastHttpUser):
         with self.rest("GET", "/v1/sales") as resp:
             pass
 
+    @task
+    def t(self):
+        with self.rest("GET", "/v1/sales/beers") as resp:
+            pass
+
 class Warehouses(FastHttpUser):
     host = "http://localhost:5600"
     default_headers = {

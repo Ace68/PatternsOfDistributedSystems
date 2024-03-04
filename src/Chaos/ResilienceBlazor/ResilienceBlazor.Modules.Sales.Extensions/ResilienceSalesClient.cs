@@ -12,4 +12,8 @@ public class ResilienceSalesClient(HttpClient client)
 
 	public async Task PostSalesOrderAsync(SalesOrderJson salesOrder, CancellationToken cancellationToken)
 		=> await client.PostAsJsonAsync("v1/sales", salesOrder, cancellationToken);
+
+	public async Task<PagedResult<BeerJson>> GetBeersAsync(CancellationToken cancellationToken)
+		=> await client.GetFromJsonAsync<PagedResult<BeerJson>>("v1/sales/beers", cancellationToken)
+		   ?? new PagedResult<BeerJson>(Enumerable.Empty<BeerJson>(), 0, 0, 0);
 }

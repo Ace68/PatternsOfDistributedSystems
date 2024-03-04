@@ -1,1 +1,61 @@
-﻿@page "/warehouses"
+﻿@using Microsoft.FluentUI.AspNetCore.Components
+@inherits WarehousesBase
+@page "/warehouses"
+
+<FluentToolbar id="toolbar-slotted-label">
+	<FluentButton Appearance="Appearance.Accent" OnClick="@GetBeersAvailabilitiesWithResilienceAsync">Get Availabilities (Resilience)</FluentButton>
+	<FluentButton Appearance="Appearance.Accent" OnClick="@GetBeersWithoutResilienceAsync">Get Availabilities (Chaos)</FluentButton>
+	<FluentButton Appearance="Appearance.Accent" OnClick="@ResetError">Reset</FluentButton>
+</FluentToolbar>
+<br/>
+<hr/>
+<div hidden="@HideResponse">
+	<FluentSplitter Orientation=Orientation.Horizontal BarSize="6">
+		<Panel1>
+			<h2>Http Response</h2>
+		</Panel1>
+		<Panel2>
+			<FluentLabel Typo="Typography.H3" Color="Color.Error">@ErrorMessage</FluentLabel>
+		</Panel2>
+	</FluentSplitter>
+	<br/>
+	<hr/>
+</div>
+<FluentSplitter Orientation=Orientation.Horizontal BarSize="6" Panel1MinSize="15%" Panel2MinSize="50px">
+	<Panel1>
+		<FluentCard>
+			<div class="container-fluid">
+				<div class="col"></div>
+			</div>
+			<FluentBadge Fill="somevalue" BackgroundColor="green" Color="white">
+				<FluentButton>
+					Good Responses
+				</FluentButton>
+				<FluentDivider Style="height: 50px;" Orientation="Orientation.Vertical"></FluentDivider>
+				<FluentButton IconStart="@(new Icons.Regular.Size16.Globe())">
+					@GoodResponses
+				</FluentButton>
+			</FluentBadge>
+		</FluentCard>
+	</Panel1>
+	<Panel2>
+		<FluentCard>
+			<FluentBadge Fill="somevalue" BackgroundColor="red" Color="white">
+				<FluentButton>
+					Bad Responses
+				</FluentButton>
+				<FluentDivider Style="height: 50px;" Orientation="Orientation.Vertical"></FluentDivider>
+				<FluentButton IconStart="@(new Icons.Regular.Size16.Globe())">
+					@BadResponses
+				</FluentButton>
+			</FluentBadge>
+		</FluentCard>
+	</Panel2>
+</FluentSplitter>
+<br />
+<hr />
+<FluentDataGrid Items="@BeersAvailabilities">
+	<PropertyColumn Property="@(o => o.BeerName)" Sortable="true" />
+	<PropertyColumn Property="@(o => o.Availability.Available)" Sortable="true" />
+	<PropertyColumn Property="@(o => o.Availability.UnitOfMeasure)" Sortable="true" />
+</FluentDataGrid>

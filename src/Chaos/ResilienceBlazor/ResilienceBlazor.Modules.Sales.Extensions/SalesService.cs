@@ -12,7 +12,7 @@ public sealed class SalesService(SalesClient salesClient, ResilienceSalesClient 
 	public async Task<PagedResult<SalesOrderJson>> GetSalesOrdersWithoutResilienceAsync(CancellationToken cancellationToken) =>
 		await salesClient.GetSalesOrdersAsync(cancellationToken);
 
-	public Task<IEnumerable<CustomerJson>> GetCustomersAsync(CancellationToken cancellationToken)
+	public Task<PagedResult<CustomerJson>> GetCustomersAsync(CancellationToken cancellationToken)
 	{
 		var customers = new List<CustomerJson>
 		{
@@ -21,8 +21,11 @@ public sealed class SalesService(SalesClient salesClient, ResilienceSalesClient 
 			new(Guid.NewGuid(), "La Birra del Muflone ")
 		};
 
-		return Task.FromResult(customers.AsEnumerable());
+		return Task.FromResult(new PagedResult<CustomerJson>(customers, 1, 10, 3));
 	}
+
+	public Task<PagedResult<BeerJson>> GetBeersAsync(CancellationToken cancellationToken) =>
+		resilienceSalesClient.GetBeersAsync(cancellationToken);
 
 	public async Task CreateSalesOrderAsync(SalesOrderJson salesOrder, CancellationToken cancellationToken) =>
 			await resilienceSalesClient.PostSalesOrderAsync(salesOrder, cancellationToken);

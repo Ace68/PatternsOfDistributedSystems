@@ -18,4 +18,8 @@
     <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Icons" Version="4.4.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ResilienceBlazor.Modules.Warehouses.Extensions\ResilienceBlazor.Modules.Warehouses.Extensions.csproj" />
+  </ItemGroup>
+
 </Project>

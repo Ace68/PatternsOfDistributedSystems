@@ -19,11 +19,24 @@ public class SalesBase : ComponentBase, IDisposable
 	protected int BadResponses = 0;
 
 	protected IEnumerable<CustomerJson> Customers { get; set; } = Enumerable.Empty<CustomerJson>();
+	protected IEnumerable<BeerJson> Beers { get; set; } = Enumerable.Empty<BeerJson>();
 
 	protected override async Task OnInitializedAsync()
 	{
-		Customers = await SalesService.GetCustomersAsync(CancellationToken.None);
+		await GetCustomersAsync();
+		await GetBeersAsync();
+
 		await base.OnInitializedAsync();
+	}
+
+	private async Task GetCustomersAsync()
+	{
+		Customers = (await SalesService.GetCustomersAsync(CancellationToken.None)).Results;
+	}
+
+	private async Task GetBeersAsync()
+	{
+		Beers = (await SalesService.GetBeersAsync(CancellationToken.None)).Results;
 	}
 
 	protected async Task GetSalesOrdersWithResilienceAsync()
@@ -110,22 +123,21 @@ public class SalesBase : ComponentBase, IDisposable
 
 	protected async Task CreateSalesOrderAsync(CustomerJson customer, DateTime orderDate)
 	{
+		List<SalesOrderRowJson> rows = Beers.Select(beer => new SalesOrderRowJson
+		{
+			BeerId = new Guid(beer.BeerId),
+			BeerName = beer.BeerName,
+			Quantity = new Quantity(10, "Lt"),
+			Price = new Price(10, "€")
+		}).ToList();
+
 		var salesOrderNumber =
 			$"{DateTime.UtcNow.Year:0000}{DateTime.UtcNow.Month:00}{DateTime.UtcNow.Day:00}-{DateTime.UtcNow.Hour:00}{DateTime.UtcNow.Minute:00}";
 		var salesOrder = new SalesOrderJson(Guid.NewGuid().ToString(),
 			salesOrderNumber,
 			customer.CustomerId, customer.CustomerName,
 			orderDate,
-			new List<SalesOrderRowJson>
-			{
-				new()
-				{
-					BeerId = new Guid("c94bc922-9a2e-4264-8800-a40e1d7d534b"),
-					BeerName = "Muflone IPA",
-					Quantity = new Quantity(10, "Lt"),
-					Price = new Price(10, "€")
-				}
-			}
+			rows
 			);
 		await SalesService.CreateSalesOrderAsync(salesOrder, CancellationToken.None);
 	}
