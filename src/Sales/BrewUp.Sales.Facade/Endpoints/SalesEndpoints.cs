@@ -23,11 +23,16 @@ public static class SalesEndpoints
 			.Produces(StatusCodes.Status400BadRequest)
 			.Produces(StatusCodes.Status200OK)
 			.WithName("GetSalesOrders");
+		
+		group.MapGet("/beers", HandleGetBeers)
+			.Produces(StatusCodes.Status400BadRequest)
+			.Produces(StatusCodes.Status200OK)
+			.WithName("GetBeersRegistry");
 
 		return endpoints;
 	}
 
-	public static async Task<IResult> HandleCreateOrder(
+	private static async Task<IResult> HandleCreateOrder(
 		ISalesFacade salesUpFacade,
 		IValidator<SalesOrderJson> validator,
 		ValidationHandler validationHandler,
@@ -43,12 +48,21 @@ public static class SalesEndpoints
 		return Results.Created(new Uri($"/v1/sales/{salesOrderId}", UriKind.Relative), salesOrderId);
 	}
 
-	public static async Task<IResult> HandleGetOrders(
+	private static async Task<IResult> HandleGetOrders(
 		ISalesFacade salesUpFacade,
 		CancellationToken cancellationToken)
 	{
 		var orders = await salesUpFacade.GetOrdersAsync(cancellationToken);
 
 		return Results.Ok(orders);
+	}
+	
+	private static async Task<IResult> HandleGetBeers(
+		ISalesFacade salesUpFacade,
+		CancellationToken cancellationToken)
+	{
+		var beers = await salesUpFacade.GetBeersAsync(cancellationToken);
+
+		return Results.Ok(beers);
 	}
 }

@@ -45,10 +45,11 @@ public static class RabbitMqHelper
 			new UpdateAvailabilityDueToWarehousesNotificationConsumer(repository, mufloneConnectionFactory,
 				loggerFactory),
 			new AvailabilityUpdatedDueToWarehousesNotificationConsumer(serviceProvider.GetRequiredService<IAvailabilityService>(),
-								mufloneConnectionFactory,
-												loggerFactory),
+								mufloneConnectionFactory, loggerFactory),
 			
-			new CreateBeerRegistryConsumer(repository, mufloneConnectionFactory, loggerFactory)
+			new CreateBeerRegistryConsumer(repository, mufloneConnectionFactory, loggerFactory),
+			new BeerRegistryCreatedConsumer(serviceProvider.GetRequiredService<IBeerService>(),
+				mufloneConnectionFactory, loggerFactory)
 		});
 
 		services.AddMufloneRabbitMQConsumers(consumers);

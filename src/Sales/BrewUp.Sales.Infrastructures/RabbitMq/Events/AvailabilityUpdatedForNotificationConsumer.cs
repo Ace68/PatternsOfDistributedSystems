@@ -14,6 +14,7 @@ public sealed class AvailabilityUpdatedForNotificationConsumer(IServiceBus servi
 {
 	protected override IEnumerable<IIntegrationEventHandlerAsync<AvailabilityUpdatedForNotification>> HandlersAsync { get; } = new List<IIntegrationEventHandlerAsync<AvailabilityUpdatedForNotification>>
 	{
-		new AvailabilityUpdatedForNotificationEventHandler(loggerFactory, serviceBus)
+		new AvailabilityUpdatedForNotificationEventHandler(loggerFactory, serviceBus),
+		new AvailabilityUpdatedForBeerRegistryEventHandler(loggerFactory, serviceBus)
 	};
 }

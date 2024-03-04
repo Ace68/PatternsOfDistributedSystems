@@ -1,4 +1,5 @@
-﻿using BrewUp.Shared.CustomTypes;
+﻿using BrewUp.Shared.Contracts;
+using BrewUp.Shared.CustomTypes;
 using BrewUp.Shared.DomainIds;
 using BrewUp.Shared.Entities;
 
@@ -19,4 +20,6 @@ public class Beer : EntityBase
         Id = beerId;
         BeerName = beerName;
     }
+    
+    public BeerJson ToJson() => new(Id, BeerName);
 }
