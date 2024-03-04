@@ -16,7 +16,7 @@ public sealed class AvailabilityUpdatedDueToProductionOrderConsumer(IAvailabilit
 {
 	protected override IEnumerable<IDomainEventHandlerAsync<AvailabilityUpdatedDueToProductionOrder>> HandlersAsync { get; } = new List<DomainEventHandlerAsync<AvailabilityUpdatedDueToProductionOrder>>
 	{
-		new AvailabilityUpdatedDueToProductionOrderEventHandler(loggerFactory, availabilityService),
-		new AvailabilityUpdatedDueToProductionOrderForIntegrationEventHandler(loggerFactory, eventBus)
+		new AvailabilityUpdatedDueToProductionOrderForIntegrationEventHandler(loggerFactory, eventBus),
+		new AvailabilityUpdatedDueToProductionOrderEventHandler(loggerFactory, availabilityService)
 	};
 }

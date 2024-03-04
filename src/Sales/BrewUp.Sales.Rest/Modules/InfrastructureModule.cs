@@ -1,4 +1,5 @@
-﻿using BrewUp.Sales.Infrastructures;
+﻿using BrewUp.Sales.Facade;
+using BrewUp.Sales.Infrastructures;
 using BrewUp.Sales.Infrastructures.MongoDb;
 using BrewUp.Sales.Infrastructures.RabbitMq;
 

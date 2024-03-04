@@ -46,7 +46,9 @@ public static class RabbitMqHelper
 				loggerFactory),
 			new AvailabilityUpdatedDueToWarehousesNotificationConsumer(serviceProvider.GetRequiredService<IAvailabilityService>(),
 								mufloneConnectionFactory,
-												loggerFactory)
+												loggerFactory),
+			
+			new CreateBeerRegistryConsumer(repository, mufloneConnectionFactory, loggerFactory)
 		});
 
 		services.AddMufloneRabbitMQConsumers(consumers);

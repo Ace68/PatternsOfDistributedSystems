@@ -6,7 +6,8 @@ using Muflone.Persistence;
 
 namespace BrewUp.Sales.Acl;
 
-public sealed class AvailabilityUpdatedForNotificationEventHandler(ILoggerFactory loggerFactory, IServiceBus serviceBus) : IntegrationEventHandlerAsync<AvailabilityUpdatedForNotification>(loggerFactory)
+public sealed class AvailabilityUpdatedForNotificationEventHandler(ILoggerFactory loggerFactory, IServiceBus serviceBus) 
+	: IntegrationEventHandlerAsync<AvailabilityUpdatedForNotification>(loggerFactory)
 {
 	public override async Task HandleAsync(AvailabilityUpdatedForNotification @event,
 		CancellationToken cancellationToken = new())
