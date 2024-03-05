@@ -4,54 +4,25 @@ using Microsoft.AspNetCore.RateLimiting;
 
 namespace BrewUp.Sales.Rest.Modules;
 
-public static class ModuleExtensions
+public class RateLimitModule : IModule
 {
-	private static readonly IList<IModule> RegisteredModules = new List<IModule>();
-	private static RateLimitSettings _rateLimitSettings = new();
-	public static string RateLimitPolicy { get; private set; } = string.Empty;
+    public bool IsEnabled => false;
+    public int Order => 0;
+    
+    private RateLimitSettings _rateLimitSettings = new();
+    private string _rateLimitPolicy = string.Empty;
+    
+    public IServiceCollection RegisterModule(WebApplicationBuilder builder)
+    {
+        
+        _rateLimitSettings = builder.Configuration.GetSection("BrewUp:RateLimitSettings")
+            .Get<RateLimitSettings>()!;
 
-	public static WebApplicationBuilder RegisterModules(this WebApplicationBuilder builder)
-	{
-		builder.AddRateLimiterPolicy();
-		
-		var modules = DiscoverModules();
-		foreach (var module in modules
-					 .Where(m => m.IsEnabled)
-					 .OrderBy(m => m.Order))
-		{
-			module.RegisterModule(builder);
-			RegisteredModules.Add(module);
-		}
-
-		return builder;
-	}
-
-	public static WebApplication MapEndpoints(this WebApplication app)
-	{
-		foreach (var module in RegisteredModules)
-		{
-			module.MapEndpoints(app);
-		}
-
-		if (_rateLimitSettings.FixedWindow.Enabled
-		    || _rateLimitSettings.SlidingWindow.Enabled
-		    || _rateLimitSettings.TokenBucket.Enabled
-		    || _rateLimitSettings.Concurrency.Enabled)
-			app.UseRateLimiter();
-		
-		return app;
-	}
-
-	private static IServiceCollection AddRateLimiterPolicy(this WebApplicationBuilder builder)
-	{
-		_rateLimitSettings = builder.Configuration.GetSection("BrewUp:RateLimitSettings")
-			.Get<RateLimitSettings>()!;
-		
-		if (_rateLimitSettings.FixedWindow.Enabled)
+        if (_rateLimitSettings.FixedWindow.Enabled)
         {
-            RateLimitPolicy = "fixed";
+            _rateLimitPolicy = "fixed";
             builder.Services.AddRateLimiter(_ => _
-                .AddFixedWindowLimiter(policyName: RateLimitPolicy, options =>
+                .AddFixedWindowLimiter(policyName: _rateLimitPolicy, options =>
                 {
                     options.PermitLimit = _rateLimitSettings.FixedWindow.PermitLimit;
                     options.Window = TimeSpan.FromSeconds(_rateLimitSettings.FixedWindow.TimeWindowInSeconds);
@@ -62,9 +33,9 @@ public static class ModuleExtensions
 
         if (_rateLimitSettings.SlidingWindow.Enabled)
         {
-            RateLimitPolicy = "sliding";
+            _rateLimitPolicy = "sliding";
             builder.Services.AddRateLimiter(_ => _
-                .AddSlidingWindowLimiter(policyName: RateLimitPolicy, options =>
+                .AddSlidingWindowLimiter(policyName: _rateLimitPolicy, options =>
                 {
                     options.PermitLimit = _rateLimitSettings.SlidingWindow.PermitLimit;
                     options.Window = TimeSpan.FromSeconds(_rateLimitSettings.SlidingWindow.SecondsPerWindow);
@@ -76,9 +47,9 @@ public static class ModuleExtensions
 
         if (_rateLimitSettings.TokenBucket.Enabled)
         {
-            RateLimitPolicy = "token";
+            _rateLimitPolicy = "token";
             builder.Services.AddRateLimiter(_ => _
-                .AddTokenBucketLimiter(policyName: RateLimitPolicy, options =>
+                .AddTokenBucketLimiter(policyName: _rateLimitPolicy, options =>
                 {
                     options.TokenLimit = _rateLimitSettings.TokenBucket.TokenLimit;
                     options.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
@@ -91,25 +62,29 @@ public static class ModuleExtensions
 
         if (_rateLimitSettings.Concurrency.Enabled)
         {
-            RateLimitPolicy = "Concurrency";
+            _rateLimitPolicy = "Concurrency";
             builder.Services.AddRateLimiter(_ => _
-                .AddConcurrencyLimiter(policyName: RateLimitPolicy, options =>
+                .AddConcurrencyLimiter(policyName: _rateLimitPolicy, options =>
                 {
                     options.PermitLimit = _rateLimitSettings.Concurrency.PermitLimit;
                     options.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
                     options.QueueLimit = _rateLimitSettings.Concurrency.QueueLimit;
                 }));
         }
+        
+        return builder.Services;
+    }
 
-		return builder.Services;
-	}
+    public IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints)
+    {
+        if (_rateLimitSettings.FixedWindow.Enabled
+            || _rateLimitSettings.SlidingWindow.Enabled
+            || _rateLimitSettings.TokenBucket.Enabled
+            || _rateLimitSettings.Concurrency.Enabled)
+        {
+            //app.MapRateLimiter();
+        }
 
-	private static IEnumerable<IModule> DiscoverModules()
-	{
-		return typeof(IModule).Assembly
-			.GetTypes()
-			.Where(p => p.IsClass && p.IsAssignableTo(typeof(IModule)))
-			.Select(Activator.CreateInstance)
-			.Cast<IModule>();
-	}
+        return endpoints;
+    }
 }

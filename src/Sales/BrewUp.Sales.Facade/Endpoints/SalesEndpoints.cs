@@ -9,9 +9,10 @@ namespace BrewUp.Sales.Facade.Endpoints;
 
 public static class SalesEndpoints
 {
-	public static IEndpointRouteBuilder MapSalesEndpoints(this IEndpointRouteBuilder endpoints)
+	public static IEndpointRouteBuilder MapSalesEndpoints(this IEndpointRouteBuilder endpoints, string rateLimitPolicy)
 	{
 		var group = endpoints.MapGroup("/v1/sales/")
+			.RequireRateLimiting(rateLimitPolicy)
 			.WithTags("Sales");
 
 		group.MapPost("/", HandleCreateOrder)
