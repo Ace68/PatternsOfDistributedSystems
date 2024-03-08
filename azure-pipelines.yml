@@ -1,0 +1,55 @@
+# ASP.NET Core
+# Build and test ASP.NET Core projects targeting .NET Core.
+# Add steps that run tests, create a NuGet package, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+name: BrewUp Sales $(Date:yyyyMMdd).$(Rev:r) ($(Build.BuildId))
+
+trigger:
+  branches:
+    include:
+      - main
+
+resources:
+- repo: self
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+#   Repository name on Container registry
+  - name: dockerfilePath
+    value:  '**/src/Sales/Dockerfile'
+  - name: tag
+    value: '$(Build.BuildId)'
+#   Agent VM image name
+  - name: vmImageName
+    value: 'ubuntu-latest'
+#   Container registry service connection established during pipeline creation
+  - name: containerRegistryServiceConnection
+    value: "DockerHub"
+#   Repository name on Container registry
+  - name: containerRegistryRepositoryName
+    value: 'brewupsales'
+
+stages:
+- stage: Build
+  displayName: Build BrewUp Sales
+  jobs:
+  - job: Build
+    displayName: Build BrewUp Sales Api
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - bash: echo $(containerRegistryServiceConnection)
+    - bash: echo $(containerRegistryRepositoryName)
+    - bash: echo $(Build.SourceBranchName)
+    - bash: echo $(Build.SourceBranch)
+    - task: Docker@2
+      displayName: Build a BrewUp Sales Api image to container registry
+      inputs:
+        command: build
+        repository: $(containerRegistryRepositoryName)
+        dockerfile: $(dockerfilePath)
+        containerRegistry: $(containerRegistryServiceConnection)
+        tags: |
+          $(tag)
