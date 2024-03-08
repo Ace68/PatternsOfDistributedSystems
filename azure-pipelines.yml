@@ -53,3 +53,11 @@ stages:
         containerRegistry: $(containerRegistryServiceConnection)
         tags: |
           $(tag)
+    - task: Docker@2
+      displayName: Push a BrewUp Sales image to container registry
+      inputs:
+        containerRegistry: $(containerRegistryServiceConnection)
+        repository: $(containerRegistryRepositoryName)
+        command: 'push'
+        tags: |
+          $(tag)
