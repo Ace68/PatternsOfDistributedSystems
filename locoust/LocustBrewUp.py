@@ -52,4 +52,4 @@ class Warehouses(FastHttpUser):
 
 if __name__ == "__main__":
     run_single_user(Sales)
-    run_single_user(Warehouses)
+    # run_single_user(Warehouses)
