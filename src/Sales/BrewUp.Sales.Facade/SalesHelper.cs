@@ -19,11 +19,9 @@ public static class SalesHelper
 
 		services.AddScoped<ISalesFacade, SalesFacade>();
 		services.AddScoped<ISalesOrderService, SalesOrderService>();
-		services.AddScoped<IBeerService, BeerService>();
 		services.AddScoped<IAvailabilityService, AvailabilityService>();
 		services.AddScoped<IQueries<SalesOrder>, SalesOrderQueries>();
 		services.AddScoped<IQueries<Availability>, AvailabilityQueries>();
-		services.AddScoped<IQueries<Beer>, BeersQueries>();
 
 		return services;
 	}

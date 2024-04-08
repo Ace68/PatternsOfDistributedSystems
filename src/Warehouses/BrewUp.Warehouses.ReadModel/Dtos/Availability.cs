@@ -30,8 +30,6 @@ public class Availability : EntityBase
 		Quantity = quantity;
 	}
 
-	public void UpdateAvailability(Quantity quantity) => Quantity = quantity;
-
 	public BeerAvailabilityJson ToJson() => new(Id, BeerName,
 		new Shared.CustomTypes.Availability(0, Quantity.Value, Quantity.UnitOfMeasure));
 }

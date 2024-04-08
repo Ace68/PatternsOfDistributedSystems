@@ -35,10 +35,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BrewUp.Shared", "BrewUp.Sha
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BrewUp.Sales.Acl", "BrewUp.Sales.Acl\BrewUp.Sales.Acl.csproj", "{340E1F21-3A2C-4DB3-A1BF-882CCD71567D}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{F93187C5-D4A2-482F-82C9-72380BE34A48}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrewUp.Sales.Architecture.Tests", "BrewUp.Sales.Architecture.Tests\BrewUp.Sales.Architecture.Tests.csproj", "{9E9F4793-7A51-44E7-B181-7F2B9BA26F1D}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -81,10 +77,6 @@ Global
 		{340E1F21-3A2C-4DB3-A1BF-882CCD71567D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{340E1F21-3A2C-4DB3-A1BF-882CCD71567D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{340E1F21-3A2C-4DB3-A1BF-882CCD71567D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9E9F4793-7A51-44E7-B181-7F2B9BA26F1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9E9F4793-7A51-44E7-B181-7F2B9BA26F1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9E9F4793-7A51-44E7-B181-7F2B9BA26F1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9E9F4793-7A51-44E7-B181-7F2B9BA26F1D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -100,8 +92,6 @@ Global
 		{55BF3BD3-9D5E-46BE-AE3F-4622A6BA7050} = {9121A29A-4097-422E-B039-8325FA2E67B8}
 		{31732DC0-F548-4412-8F30-91841FBD9FC9} = {0A97B4B7-F6F0-46B5-A0BE-D3B19EDD8037}
 		{340E1F21-3A2C-4DB3-A1BF-882CCD71567D} = {49BB8C56-05B8-4193-96E2-88140E2A0D4B}
-		{F93187C5-D4A2-482F-82C9-72380BE34A48} = {C26A638D-7AA3-43D8-877D-A99CCD44D088}
-		{9E9F4793-7A51-44E7-B181-7F2B9BA26F1D} = {F93187C5-D4A2-482F-82C9-72380BE34A48}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8F5EA6FF-1F3C-44E5-BD5C-BAC3AC4625E6}

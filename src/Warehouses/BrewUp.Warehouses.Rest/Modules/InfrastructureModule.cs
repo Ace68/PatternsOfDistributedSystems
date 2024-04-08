@@ -1,6 +1,6 @@
 ﻿using BrewUp.Warehouses.Infrastructures;
+using BrewUp.Warehouses.Infrastructures.Azure;
 using BrewUp.Warehouses.Infrastructures.MongoDb;
-using BrewUp.Warehouses.Infrastructures.RabbitMq;
 
 namespace BrewUp.Warehouses.Rest.Modules;
 
@@ -14,8 +14,8 @@ public class InfrastructureModule : IModule
 		var mongoDbSettings = builder.Configuration.GetSection("BrewUp:MongoDbSettings")
 			.Get<MongoDbSettings>()!;
 
-		var rabbitMqSettings = builder.Configuration.GetSection("BrewUp:RabbitMQ")
-			.Get<RabbitMqSettings>()!;
+		var rabbitMqSettings = builder.Configuration.GetSection("BrewUp:AzureServiceBus")
+			.Get<AzureServiceBusSettings>()!;
 
 		var eventStoreSettings = builder.Configuration.GetSection("BrewUp:EventStore")
 			.Get<EventStoreSettings>()!;

@@ -31,9 +31,7 @@ public sealed class AvailabilityQueries(IMongoClient mongoClient) : IQueries<Ava
 			: collection.AsQueryable();
 
 		var count = await queryable.CountAsync(cancellationToken: cancellationToken);
-		var results = count == 0
-			? Enumerable.Empty<Availability>()
-			: await queryable.Skip(page * pageSize).Take(pageSize).ToListAsync(cancellationToken: cancellationToken);
+		var results = await queryable.Skip(page * pageSize).Take(pageSize).ToListAsync(cancellationToken: cancellationToken);
 
 		return new PagedResult<Availability>(results, page, pageSize, count);
 	}

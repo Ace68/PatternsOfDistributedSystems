@@ -9,10 +9,9 @@ namespace BrewUp.Sales.Facade.Endpoints;
 
 public static class SalesEndpoints
 {
-	public static IEndpointRouteBuilder MapSalesEndpoints(this IEndpointRouteBuilder endpoints, string rateLimitPolicy)
+	public static IEndpointRouteBuilder MapSalesEndpoints(this IEndpointRouteBuilder endpoints)
 	{
 		var group = endpoints.MapGroup("/v1/sales/")
-			.RequireRateLimiting(rateLimitPolicy)
 			.WithTags("Sales");
 
 		group.MapPost("/", HandleCreateOrder)
@@ -24,16 +23,11 @@ public static class SalesEndpoints
 			.Produces(StatusCodes.Status400BadRequest)
 			.Produces(StatusCodes.Status200OK)
 			.WithName("GetSalesOrders");
-		
-		group.MapGet("/beers", HandleGetBeers)
-			.Produces(StatusCodes.Status400BadRequest)
-			.Produces(StatusCodes.Status200OK)
-			.WithName("GetBeersRegistry");
 
 		return endpoints;
 	}
 
-	private static async Task<IResult> HandleCreateOrder(
+	public static async Task<IResult> HandleCreateOrder(
 		ISalesFacade salesUpFacade,
 		IValidator<SalesOrderJson> validator,
 		ValidationHandler validationHandler,
@@ -49,21 +43,12 @@ public static class SalesEndpoints
 		return Results.Created(new Uri($"/v1/sales/{salesOrderId}", UriKind.Relative), salesOrderId);
 	}
 
-	private static async Task<IResult> HandleGetOrders(
+	public static async Task<IResult> HandleGetOrders(
 		ISalesFacade salesUpFacade,
 		CancellationToken cancellationToken)
 	{
 		var orders = await salesUpFacade.GetOrdersAsync(cancellationToken);
 
 		return Results.Ok(orders);
-	}
-	
-	private static async Task<IResult> HandleGetBeers(
-		ISalesFacade salesUpFacade,
-		CancellationToken cancellationToken)
-	{
-		var beers = await salesUpFacade.GetBeersAsync(cancellationToken);
-
-		return Results.Ok(beers);
 	}
 }

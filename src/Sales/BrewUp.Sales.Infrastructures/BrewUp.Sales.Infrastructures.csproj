@@ -11,8 +11,8 @@
    <PackageReference Include="MongoDB.Driver" Version="2.23.1" />
    <PackageReference Include="Muflone.Eventstore" Version="6.1.1" />
    <PackageReference Include="Muflone.Saga.Persistence.MongoDb" Version="6.0.0" />
-   <PackageReference Include="Muflone.Transport.RabbitMQ" Version="6.2.3" />
-   <PackageReference Include="Muflone.Transport.RabbitMQ.Saga" Version="6.2.0" />
+   <PackageReference Include="Muflone.Transport.Azure" Version="6.1.8" />
+   <PackageReference Include="Muflone.Transport.Azure.Saga" Version="6.1.0" />
  </ItemGroup>
 
   <ItemGroup>

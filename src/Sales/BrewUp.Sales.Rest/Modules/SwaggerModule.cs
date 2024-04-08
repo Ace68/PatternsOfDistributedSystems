@@ -10,7 +10,7 @@ public sealed class SwaggerModule : IModule
 	public IServiceCollection RegisterModule(WebApplicationBuilder builder)
 	{
 		builder.Services.AddEndpointsApiExplorer();
-		builder.Services.AddSwaggerGen(setup => setup.SwaggerDoc("v1", new OpenApiInfo
+		builder.Services.AddSwaggerGen(setup => setup.SwaggerDoc("v1", new OpenApiInfo()
 		{
 			Description = "BrewUp Sales",
 			Title = "BrewUp Sales API",

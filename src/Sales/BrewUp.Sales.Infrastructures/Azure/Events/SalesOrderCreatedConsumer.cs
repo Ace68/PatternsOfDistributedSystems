@@ -4,17 +4,17 @@ using BrewUp.Sales.SharedKernel.Events;
 using Microsoft.Extensions.Logging;
 using Muflone;
 using Muflone.Messages.Events;
-using Muflone.Transport.RabbitMQ.Abstracts;
-using Muflone.Transport.RabbitMQ.Consumers;
+using Muflone.Transport.Azure.Consumers;
+using Muflone.Transport.Azure.Models;
 
-namespace BrewUp.Sales.Infrastructures.RabbitMq.Events;
+namespace BrewUp.Sales.Infrastructures.Azure.Events;
 
-public sealed class SalesOrderCreatedConsumer : DomainEventsConsumerBase<SalesOrderCreated>
+public sealed class SalesOrderCreatedConsumer : DomainEventConsumerBase<SalesOrderCreated>
 {
 	protected override IEnumerable<IDomainEventHandlerAsync<SalesOrderCreated>> HandlersAsync { get; }
 
 	public SalesOrderCreatedConsumer(ISalesOrderService salesOrderService, IEventBus eventBus,
-		IMufloneConnectionFactory connectionFactory, ILoggerFactory loggerFactory) : base(connectionFactory, loggerFactory)
+		AzureServiceBusConfiguration azureServiceBusConfiguration, ILoggerFactory loggerFactory) : base(azureServiceBusConfiguration, loggerFactory)
 	{
 		HandlersAsync = new List<DomainEventHandlerAsync<SalesOrderCreated>>
 		{

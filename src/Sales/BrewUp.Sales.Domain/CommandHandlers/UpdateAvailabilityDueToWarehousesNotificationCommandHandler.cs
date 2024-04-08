@@ -18,12 +18,10 @@ public sealed class UpdateAvailabilityDueToWarehousesNotificationCommandHandler 
 		{
 			var aggregate = await Repository.GetByIdAsync<Availability>(command.BeerId.Value);
 			aggregate.UpdateAvailability(command.Quantity, command.MessageId);
-			
-			await Repository.SaveAsync(aggregate, Guid.NewGuid());
 		}
 		catch
 		{
-			// I'm lazy ... I should raise an event here, or testing the exception
+			// I'm lazy, I don't want to handle the exception
 			var aggregate = Availability.CreateAvailability(command.BeerId, command.BeerName, command.Quantity, command.MessageId);
 			await Repository.SaveAsync(aggregate, Guid.NewGuid());
 		}

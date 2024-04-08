@@ -1,5 +1,5 @@
-﻿using BrewUp.Sales.Infrastructures.MongoDb;
-using BrewUp.Sales.Infrastructures.RabbitMq;
+﻿using BrewUp.Sales.Infrastructures.Azure;
+using BrewUp.Sales.Infrastructures.MongoDb;
 using Microsoft.Extensions.DependencyInjection;
 using Muflone.Eventstore;
 using Muflone.Saga.Persistence.MongoDb;
@@ -10,7 +10,7 @@ public static class InfrastructureHelper
 {
 	public static IServiceCollection AddInfrastructure(this IServiceCollection services,
 		MongoDbSettings mongoDbSettings,
-		RabbitMqSettings rabbitMqSettings,
+		AzureServiceBusSettings azureServiceBusSettings,
 		EventStoreSettings eventStoreSettings)
 	{
 		services.AddSalesMongoDb(mongoDbSettings);
@@ -18,7 +18,7 @@ public static class InfrastructureHelper
 
 		services.AddMufloneEventStore(eventStoreSettings.ConnectionString);
 
-		services.AddRabbitMqForSalesModule(rabbitMqSettings);
+		services.AddAzureForSalesModule(azureServiceBusSettings);
 
 		return services;
 	}

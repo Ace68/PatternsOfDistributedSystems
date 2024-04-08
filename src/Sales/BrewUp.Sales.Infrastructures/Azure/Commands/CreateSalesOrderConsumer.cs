@@ -3,15 +3,15 @@ using BrewUp.Sales.SharedKernel.Commands;
 using Microsoft.Extensions.Logging;
 using Muflone.Messages.Commands;
 using Muflone.Persistence;
-using Muflone.Transport.RabbitMQ.Abstracts;
-using Muflone.Transport.RabbitMQ.Consumers;
+using Muflone.Transport.Azure.Consumers;
+using Muflone.Transport.Azure.Models;
 
-namespace BrewUp.Sales.Infrastructures.RabbitMq.Commands;
+namespace BrewUp.Sales.Infrastructures.Azure.Commands;
 
 public sealed class CreateSalesOrderConsumer(IRepository repository,
-		IMufloneConnectionFactory connectionFactory,
+		AzureServiceBusConfiguration azureServiceBusConfiguration,
 		ILoggerFactory loggerFactory)
-	: CommandConsumerBase<CreateSalesOrder>(repository, connectionFactory, loggerFactory)
+	: CommandConsumerBase<CreateSalesOrder>(azureServiceBusConfiguration, loggerFactory)
 {
 	protected override ICommandHandlerAsync<CreateSalesOrder> HandlerAsync { get; } = new CreateSalesOrderCommandHandler(repository, loggerFactory);
 }

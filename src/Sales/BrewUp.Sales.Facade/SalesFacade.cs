@@ -11,8 +11,7 @@ using Muflone.Persistence;
 namespace BrewUp.Sales.Facade;
 
 public sealed class SalesFacade(IServiceBus serviceBus,
-	IQueries<SalesOrder> orderQueries,
-	IQueries<Beer> beerQueries) : ISalesFacade
+	IQueries<SalesOrder> orderQueries) : ISalesFacade
 {
 	public async Task<string> CreateOrderAsync(SalesOrderJson body, CancellationToken cancellationToken)
 	{
@@ -34,14 +33,5 @@ public sealed class SalesFacade(IServiceBus serviceBus,
 		return salesOrders.TotalRecords > 0
 			? new PagedResult<SalesOrderJson>(salesOrders.Results.Select(r => r.ToJson()), salesOrders.Page, salesOrders.PageSize, salesOrders.TotalRecords)
 			: new PagedResult<SalesOrderJson>(Enumerable.Empty<SalesOrderJson>(), 0, 0, 0);
-	}
-
-	public async Task<PagedResult<BeerJson>> GetBeersAsync(CancellationToken cancellationToken)
-	{
-		var beersRegistry = await beerQueries.GetByFilterAsync(null, 0, 100, cancellationToken);
-
-		return beersRegistry.TotalRecords > 0
-			? new PagedResult<BeerJson>(beersRegistry.Results.Select(r => r.ToJson()), beersRegistry.Page, beersRegistry.PageSize, beersRegistry.TotalRecords)
-			: new PagedResult<BeerJson>(Enumerable.Empty<BeerJson>(), 0, 0, 0);
 	}
 }
