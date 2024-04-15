@@ -1,4 +1,4 @@
-# Global Azure 2024
+# Distributed Systems: Promise and Perils
 Patterns of Distributed Systems (Fitness Functions, Chaos Engineering, Resilience, Metrics).
 
 ## Metrics
