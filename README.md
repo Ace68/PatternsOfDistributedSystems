@@ -38,3 +38,12 @@ Prometheus is 100% open source and community-driven.
 ## Grafana
 [Grafana](https://grafana.com/) is an open source interactive data-visualization platform, developed by Grafana Labs, which allows users to see their data via charts and graphs that are unified into one dashboard (or multiple dashboards!) for easier interpretation and understanding.  
 Grafana is a set of one or more panels organized and arranged into one or more rows.  
+
+
+## Docker
+To run the example you need to prepare Docker images.  
+To do this, within the folder project of each microservices, follow these instructions
+### Sales
+> - docker build -t brewupsales .
+### Warehouses
+> - docker build -t brewupwarehouses .
