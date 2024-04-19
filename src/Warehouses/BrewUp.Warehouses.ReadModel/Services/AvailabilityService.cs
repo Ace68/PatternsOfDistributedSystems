@@ -18,8 +18,9 @@ public sealed class AvailabilityService : ServiceBase, IAvailabilityService
 		cancellationToken.ThrowIfCancellationRequested();
 		try
 		{
-			var availability = Dtos.Availability.Create(beerId, beerName, quantity);
-			await Persister.InsertAsync(availability, cancellationToken);
+			var beerAvailability = await Persister.GetByIdAsync<Dtos.Availability>(beerId.Value.ToString(), cancellationToken);
+			beerAvailability.UpdateQuantity(quantity);
+			await Persister.UpdateAsync(beerAvailability, cancellationToken);
 		}
 		catch (Exception ex)
 		{
