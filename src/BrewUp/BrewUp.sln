@@ -53,6 +53,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrewUp.Warehouses.Architect
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrewUp.Sales.Architecture.Tests", "Sales\BrewUp.Sales.Architecture.Tests\BrewUp.Sales.Architecture.Tests.csproj", "{2EA0E942-EF2B-4C79-9FF6-CC16A6BC904E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mediator", "Mediator", "{09B82276-C446-41AE-A6B8-1F3E0B87BE32}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrewUp.Mediator", "BrewUp.Mediator\BrewUp.Mediator.csproj", "{BE7F36EC-6FC5-4012-A470-E8753BE88147}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -123,6 +127,10 @@ Global
 		{2EA0E942-EF2B-4C79-9FF6-CC16A6BC904E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2EA0E942-EF2B-4C79-9FF6-CC16A6BC904E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2EA0E942-EF2B-4C79-9FF6-CC16A6BC904E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE7F36EC-6FC5-4012-A470-E8753BE88147}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE7F36EC-6FC5-4012-A470-E8753BE88147}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE7F36EC-6FC5-4012-A470-E8753BE88147}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE7F36EC-6FC5-4012-A470-E8753BE88147}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -149,6 +157,8 @@ Global
 		{1DD81C1D-8837-4679-A369-883CA486A277} = {3694CB03-EFCB-4FF6-A86B-78A12E8323A2}
 		{7C22ED08-735D-48D5-8DB7-D04C31A200F1} = {6CDA58FC-29E7-4038-A8ED-07FC2FFBA172}
 		{2EA0E942-EF2B-4C79-9FF6-CC16A6BC904E} = {7B8DD8FC-6CE9-4A07-998E-B5ECA2BB27B5}
+		{09B82276-C446-41AE-A6B8-1F3E0B87BE32} = {270BE04B-6371-4763-A178-03F7A21CD332}
+		{BE7F36EC-6FC5-4012-A470-E8753BE88147} = {09B82276-C446-41AE-A6B8-1F3E0B87BE32}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0D64E812-8929-4A40-AA7D-CD28DB67CA9C}

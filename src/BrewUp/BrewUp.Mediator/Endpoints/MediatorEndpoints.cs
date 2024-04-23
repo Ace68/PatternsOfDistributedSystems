@@ -22,14 +22,13 @@ public static class MediatorEndpoints
 		return endpoints;
 	}
 
-	public static async Task<IResult> HandleCreateOrder(
+	private static async Task<IResult> HandleCreateOrder(
 		IBrewUpFacade brewUpFacade,
 		IValidator<SalesOrderJson> validator,
 		ValidationHandler validationHandler,
 		SalesOrderJson body,
 		CancellationToken cancellationToken)
 	{
-
 		await validationHandler.ValidateAsync(validator, body);
 		if (!validationHandler.IsValid)
 			return Results.BadRequest(validationHandler.Errors);

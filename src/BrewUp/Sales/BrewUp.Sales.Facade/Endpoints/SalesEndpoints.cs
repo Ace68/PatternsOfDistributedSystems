@@ -1,7 +1,4 @@
-﻿using BrewUp.Sales.Facade.Validators;
-using BrewUp.Shared.Contracts;
-using FluentValidation;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 
@@ -18,11 +15,6 @@ public static class SalesEndpoints
 			.Produces(StatusCodes.Status400BadRequest)
 			.Produces(StatusCodes.Status200OK)
 			.WithName("GetSalesOrders");
-		
-		group.MapPost("/", HandleCreateOrder)
-			.Produces(StatusCodes.Status400BadRequest)
-			.Produces(StatusCodes.Status201Created)
-			.WithName("CreateSalesOrder");
 
 		return endpoints;
 	}
@@ -34,21 +26,5 @@ public static class SalesEndpoints
 		var orders = await salesUpFacade.GetOrdersAsync(cancellationToken);
 
 		return Results.Ok(orders);
-	}
-
-	private static async Task<IResult> HandleCreateOrder(
-		ISalesFacade salesFacade,
-		IValidator<SalesOrderJson> validator,
-		ValidationHandler validationHandler,
-		SalesOrderJson body,
-		CancellationToken cancellationToken)
-	{
-		await validationHandler.ValidateAsync(validator, body);
-		if (!validationHandler.IsValid)
-			return Results.BadRequest(validationHandler.Errors);
-
-		var orderId = await salesFacade.CreateOrderAsync(body, cancellationToken);
-
-		return Results.Created($"/v1/sales/orders/{orderId}", orderId);
 	}
 }
