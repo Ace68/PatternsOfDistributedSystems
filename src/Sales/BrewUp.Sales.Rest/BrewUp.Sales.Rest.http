@@ -1,6 +1,0 @@
-@BrewUpSales.Rest_HostAddress = http://localhost:5155
-
-GET {{BrewUpSales.Rest_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
