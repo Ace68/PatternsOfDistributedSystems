@@ -18,7 +18,8 @@ public class SalesArchitectureTests
 			"BrewUp.Warehouses.Domain",
 			"BrewUp.Warehouses.Infrastructures",
 			"BrewUp.Warehouses.ReadModel",
-			"BrewUp.Warehouses.SharedKernel"
+			"BrewUp.Warehouses.SharedKernel",
+			"BrewUp.Warehouses.Facade"
 		};
 
 		var result = types
